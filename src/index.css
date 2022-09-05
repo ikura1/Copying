@@ -119,7 +119,7 @@ body {
   flex: 0 0 100%;
   text-align: center;
 }
-visually-hidden {
+.visually-hidden {
   position: absolute !important;
   height: 1px;
   width: 1px;
