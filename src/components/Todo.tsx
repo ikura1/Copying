@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 
 type Props = {
   name: string;
@@ -9,9 +9,21 @@ type Props = {
   editTask: (id: string, newName: string) => void;
 };
 
+function usePrevious<T>(value: T) {
+  const ref = useRef<T>();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
 export default function Todo(props: Props) {
   const [isEditing, setEditing] = useState(false);
   const [newName, setNewName] = useState("");
+
+  const editFieldRef = useRef<HTMLInputElement>(null);
+  const editButtonRef = useRef<HTMLButtonElement>(null);
+  const wasEditing = usePrevious<boolean>(isEditing);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewName(e.target.value);
@@ -35,7 +47,9 @@ export default function Todo(props: Props) {
           id={props.id}
           className="todo-text"
           type="text"
+          value={newName}
           onChange={handleChange}
+          ref={editFieldRef}
         />
       </div>
       <div className="btn-group">
@@ -69,7 +83,12 @@ export default function Todo(props: Props) {
         </label>
       </div>
       <div className="btn-group">
-        <button type="button" className="btn" onClick={() => setEditing(true)}>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => setEditing(true)}
+          ref={editButtonRef}
+        >
           Edit <span className="visually-hidden">{props.name}</span>
         </button>
         <button
