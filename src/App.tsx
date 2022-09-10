@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, } from "react";
 import { nanoid } from "nanoid";
 import FilterButton from "./components/FilterButton";
 import Form from "./components/Form";

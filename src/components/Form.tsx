@@ -30,7 +30,7 @@ function Form(props: FormProps) {
         autoComplete="off"
         value={name}
         onChange={handleChange}
-      ></input>
+      />
       <button type="submit" className="btn btn__primary btn__lg">
         Add
       </button>
