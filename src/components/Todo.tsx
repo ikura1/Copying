@@ -9,21 +9,12 @@ type Props = {
   editTask: (id: string, newName: string) => void;
 };
 
-function usePrevious<T>(value: T) {
-  const ref = useRef<T>();
-  useEffect(() => {
-    ref.current = value;
-  });
-  return ref.current;
-}
-
 export default function Todo(props: Props) {
   const [isEditing, setEditing] = useState(false);
   const [newName, setNewName] = useState("");
 
   const editFieldRef = useRef<HTMLInputElement>(null);
   const editButtonRef = useRef<HTMLButtonElement>(null);
-  const wasEditing = usePrevious<boolean>(isEditing);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewName(e.target.value);
