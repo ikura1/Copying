@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 17
+          node-version: 18
       - name: build
         run: npm ci && npm run build
 
