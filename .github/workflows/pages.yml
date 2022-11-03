@@ -31,10 +31,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 17
-      - name: npm ci
-        run: npm ci
       - name: build
-        run: npm run build
+        run: npm ci && npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
