@@ -1,27 +1,25 @@
-# Simple workflow for deploying static content to GitHub Pages
 name: Deploy static content to Pages
 
 on:
-  # Runs on pushes targeting the default branch
+  # ★★★Github Actionsを起動するブランチ★★★
   push:
-    branches: ["master"]
+    branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Github Actionsを手動で起動できるようにする。
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# パーミッションの設定
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
+# これを指定していると、重複してActionsが走った時に前のをキャンセルしてくれる
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -30,19 +28,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v1
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: build
         run: npm ci && npm run build
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
-          path: "./dist"
+          # ★★★ Deployするディレクトリ ★★★
+          path: "."
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@main
